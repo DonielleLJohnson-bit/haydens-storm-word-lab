@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hayden's Storm Counter Math</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    padding: 18px;
+    text-align: center;
+    color: #173746;
+    background:
+        linear-gradient(rgba(225,245,252,.94), rgba(218,239,247,.97)),
+        linear-gradient(135deg,#5f8392,#173746);
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    border-radius: 26px;
+    padding: 24px 18px 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
+
+.badge {
+    display: inline-block;
+    background: #173746;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: clamp(32px,7vw,52px);
+    margin: 15px 0 5px;
+}
+
+.mission {
+    font-size: 19px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.problem {
+    font-size: clamp(42px,10vw,70px);
+    font-weight: 900;
+    margin: 18px 0;
+}
+
+.groups {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.group {
+    min-width: 135px;
+    min-height: 120px;
+    border: 4px dashed #4b7282;
+    border-radius: 22px;
+    padding: 15px;
+    background: #f2fbff;
+}
+
+.counter {
+    font-size: 46px;
+    display: inline-block;
+    margin: 4px;
+}
+
+.plus {
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.count-label {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.answers {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 25px 0 15px;
+}
+
+.answer {
+    min-width: 90px;
+    min-height: 70px;
+    font-size: 32px;
+    font-weight: 900;
+    border: 3px solid #173746;
+    border-radius: 18px;
+    background: white;
+    color: #173746;
+}
+
+.answer:active {
+    transform: scale(.95);
+}
+
+#feedback {
+    min-height: 45px;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 12px;
+}
+
+#next {
+    display: none;
+    margin: 10px auto;
+    padding: 16px 25px;
+    border: 0;
+    border-radius: 18px;
+    background: #173746;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.progress {
+    margin: 20px auto 10px;
+    max-width: 400px;
+    height: 16px;
+    background: #dce8ed;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #4b879c;
+}
+
+.home {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    background: #e8f5fa;
+    color: #173746;
+    border: 2px solid #173746;
+    border-radius: 15px;
+    padding: 12px 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<main>
+
+<div class="badge">
+🌪️ TIV 2 MATH MISSION
+</div>
+
+<h1>
+Storm Counter Math
+</h1>
+
+<p class="mission">
+Hayden, count the storm equipment in both boxes.
+Add the groups together and choose the correct answer.
+</p>
+
+<div class="progress">
+    <div id="progressBar"></div>
+</div>
+
+<p id="missionNumber"></p>
+
+<div id="problem" class="problem"></div>
+
+<div id="groups" class="groups"></div>
+
+<div id="answers" class="answers"></div>
+
+<div id="feedback"></div>
+
+<button id="next">
+Next Storm ➜
+</button>
+
+<br>
+
+<a class="home" href="index.html">
+⬅ Back to Storm Chasers Lab
+</a>
+
+</main>
+
+
+<script>
+
+const problems = [
+    [2,3],
+    [4,2],
+    [1,5],
+    [3,4],
+    [5,3],
+    [6,2],
+    [4,5],
+    [7,2],
+    [6,4],
+    [8,3]
+];
+
+const icons = [
+    "🌪️",
+    "📡",
+    "🌧️",
+    "⚡",
+    "🌡️",
+    "💨",
+    "⛈️",
+    "🛰️",
+    "🚙",
+    "☁️"
+];
+
+let current = 0;
+
+
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] =
+            [array[j], array[i]];
+    }
+
+    return array;
+}
+
+
+function renderProblem() {
+
+    const [a,b] = problems[current];
+
+    const total = a + b;
+
+    const icon = icons[current];
+
+    document.getElementById("missionNumber")
+        .textContent =
+        "Mission " +
+        (current + 1) +
+        " of " +
+        problems.length;
+
+    document.getElementById("problem")
+        .textContent =
+        a + " + " + b + " = ?";
+
+
+    document.getElementById("groups")
+        .innerHTML =
+
+        '<div class="group">' +
+
+        Array(a)
+            .fill(
+                '<span class="counter">' +
+                icon +
+                '</span>'
+            )
+            .join('') +
+
+        '<div class="count-label">' +
+        a +
+        ' counters</div>' +
+
+        '</div>' +
+
+        '<span class="plus">+</span>' +
+
+        '<div class="group">' +
+
+        Array(b)
+            .fill(
+                '<span class="counter">' +
+                icon +
+                '</span>'
+            )
+            .join('') +
+
+        '<div class="count-label">' +
+        b +
+        ' counters</div>' +
+
+        '</div>';
+
+
+    let choices = [
+        total,
+        Math.max(1,total - 1),
+        total + 1
+    ];
+
+    choices = shuffle(choices);
+
+
+    document.getElementById("answers")
+        .innerHTML =
+        choices.map(
+            number =>
+            '<button class="answer" onclick="checkAnswer(' +
+            number +
+            ',' +
+            total +
+            ')">' +
+            number +
+            '</button>'
+        ).join('');
+
+
+    document.getElementById("feedback")
+        .textContent = "";
+
+
+    document.getElementById("next")
+        .style.display = "none";
+
+
+    const percent =
+        (current / problems.length) * 100;
+
+    document.getElementById("progressBar")
+        .style.width =
+        percent + "%";
+}
+
+
+function checkAnswer(answer,total) {
+
+    if (answer === total) {
+
+        document.getElementById("feedback")
+            .textContent =
+            "✅ Correct! Great counting, Hayden!";
+
+        document.getElementById("next")
+            .style.display =
+            "inline-block";
+
+    }
+
+    else {
+
+        document.getElementById("feedback")
+            .textContent =
+            "🌧️ Try again. Count every storm tool in both boxes.";
+    }
+}
+
+
+document.getElementById("next")
+    .onclick = function() {
+
+        current++;
+
+        if (current >= problems.length) {
+
+            document.getElementById("progressBar")
+                .style.width =
+                "100%";
+
+            document.getElementById("problem")
+                .textContent =
+                "MISSION COMPLETE! 🌪️";
+
+            document.getElementById("groups")
+                .innerHTML =
+                "🏆";
+
+            document.getElementById("answers")
+                .innerHTML =
+                "";
+
+            document.getElementById("feedback")
+                .textContent =
+                "Great job, Hayden! You completed Storm Counter Math.";
+
+            document.getElementById("next")
+                .style.display =
+                "none";
+
+
+            let points =
+                Number(
+                    localStorage.getItem(
+                        "stormPoints"
+                    ) || 0
+                );
+
+            points += 10;
+
+            localStorage.setItem(
+                "stormPoints",
+                points
+            );
+
+            return;
+        }
+
+        renderProblem();
+    };
+
+
+renderProblem();
+
+</script>
+
+</body>
+</html>
