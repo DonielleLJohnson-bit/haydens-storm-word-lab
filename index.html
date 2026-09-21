@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hayden's Storm Chasers Lab</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(
+            rgba(7, 28, 43, .75),
+            rgba(8, 35, 52, .90)
+        ),
+        linear-gradient(135deg, #496878, #102c3b);
+    min-height: 100vh;
+    color: white;
+}
+
+/* HEADER */
+
+header {
+    padding: 30px 20px 15px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    background: #d9f4ff;
+    color: #173746;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: clamp(36px, 8vw, 64px);
+    margin: 5px;
+}
+
+.subtitle {
+    font-size: 20px;
+    opacity: .9;
+}
+
+/* STATUS BAR */
+
+.status {
+    max-width: 850px;
+    margin: 15px auto 25px;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.status-item {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* MISSION */
+
+.mission {
+    max-width: 850px;
+    margin: auto;
+    padding: 0 18px;
+}
+
+.mission-box {
+    background: #f4fbff;
+    color: #173746;
+    border-radius: 25px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+}
+
+.mission-box h2 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+/* LAB GRID */
+
+.lab {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 15px;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px,1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    color: #163442;
+    border-radius: 25px;
+    padding: 25px 18px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 9px 22px rgba(0,0,0,.25);
+    transition: .15s;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card:active {
+    transform: scale(.97);
+}
+
+.icon {
+    font-size: 55px;
+}
+
+.card h2 {
+    margin: 10px 0 5px;
+    font-size: 27px;
+}
+
+.card p {
+    margin: 5px 0;
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.start {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+    background: #183f50;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+/* SPECIAL COLORS */
+
+.math {
+    border-top: 8px solid #4c9c68;
+}
+
+.words {
+    border-top: 8px solid #4487a9;
+}
+
+.phonics {
+    border-top: 8px solid #8b68aa;
+}
+
+.writing {
+    border-top: 8px solid #e09b43;
+}
+
+.numbers {
+    border-top: 8px solid #d35f5f;
+}
+
+.assessment {
+    border-top: 8px solid #4f6c80;
+}
+
+/* WEATHER FOOTER */
+
+.weather {
+    text-align: center;
+    padding: 20px 15px 40px;
+}
+
+.weather-box {
+    display: inline-block;
+    background: rgba(255,255,255,.13);
+    border-radius: 20px;
+    padding: 15px 25px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: .75;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="badge">
+🌪️ JUNIOR STORM CHASER
+</div>
+
+<h1>
+Hayden's Storm Chasers Lab
+</h1>
+
+<div class="subtitle">
+TIV 2 Training Headquarters
+</div>
+
+</header>
+
+
+<div class="status">
+
+<div class="status-item">
+⛈️ Mission Status: ACTIVE
+</div>
+
+<div class="status-item">
+⭐ Storm Points: <span id="points">0</span>
+</div>
+
+<div class="status-item">
+🏆 Rank: Rookie Chaser
+</div>
+
+</div>
+
+
+<section class="mission">
+
+<div class="mission-box">
+
+<h2>
+📡 Today's Storm Mission
+</h2>
+
+<p>
+Hayden, a strong storm is developing.
+Before the TIV 2 can roll out,
+you need to complete your training.
+</p>
+
+<p>
+Choose a station below.
+Finish the activity and collect
+Storm Points.
+</p>
+
+</div>
+
+</section>
+
+
+<main class="lab">
+
+
+<!-- MATH -->
+
+<a class="card math"
+href="math-counter-practice.html">
+
+<div class="icon">
+🌪️
+</div>
+
+<h2>
+Storm Counter Math
+</h2>
+
+<p>
+Count storm tools and weather objects
+to solve addition problems.
+</p>
+
+<div class="start">
+START MISSION
+</div>
+
+</a>
+
+
+<!-- SPELLING -->
+
+<a class="card words"
+href="spelling.html">
+
+<div class="icon">
+📡
+</div>
+
+<h2>
+Storm Word Lab
+</h2>
+
+<p>
+Practice spelling and sight words.
+Tap words to hear them.
+</p>
+
+<div class="start">
+START MISSION
+</div>
+
+</a>
+
+
+<!-- PHONICS -->
+
+<a class="card phonics"
+href="phonics.html">
+
+<div class="icon">
+⛈️
+</div>
+
+<h2>
+Phonics Radar
+</h2>
+
+<p>
+Track letter sounds,
+build words and practice reading.
+</p>
+
+<div class="start">
+START MISSION
+</div>
+
+</a>
+
+
+<!-- HANDWRITING -->
+
+<a class="card writing"
+href="handwriting.html">
+
+<div class="icon">
+✏️
+</div>
+
+<h2>
+Chaser Handwriting
+</h2>
+
+<p>
+Practice writing
+Hayden Welch,
+letters and sight words.
+</p>
+
+<div class="start">
+START MISSION
+</div>
+
+</a>
+
+
+<!-- NUMBERS -->
+
+<a class="card numbers"
+href="numbers.html">
+
+<div class="icon">
+🌡️
+</div>
+
+<h2>
+Number Tracker
+</h2>
+
+<p>
+Practice numbers 1–20
+with storm equipment and tracing.
+</p>
+
+<div class="start">
+START MISSION
+</div>
+
+</a>
+
+
+<!-- ASSESSMENT -->
+
+<a class="card assessment"
+href="assessment.html">
+
+<div class="icon">
+🚙
+</div>
+
+<h2>
+TIV 2 Checkpoint
+</h2>
+
+<p>
+Complete your weekly skills check
+before the storm chase begins.
+</p>
+
+<div class="start">
+BEGIN CHECK
+</div>
+
+</a>
+
+
+</main>
+
+
+<section class="weather">
+
+<div class="weather-box">
+
+🌧️ <strong>Storm Training Forecast</strong>
+
+<br>
+
+Reading • Writing • Math • Phonics
+
+</div>
+
+</section>
+
+
+<footer>
+
+Hayden's Storm Chasers Lab
+<br>
+Junior Storm Chaser Training Center
+
+</footer>
+
+
+<script>
+
+/*
+Keeps Hayden's points on his device.
+Later activities can add points here.
+*/
+
+let points =
+    localStorage.getItem("stormPoints") || 0;
+
+document.getElementById("points")
+    .textContent = points;
+
+</script>
+
+</body>
+</html>
