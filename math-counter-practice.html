@@ -12,15 +12,13 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    padding: 16px;
     min-height: 100vh;
-    padding: 18px;
-    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(160deg, #dff4fb, #bcdde9);
     color: #173746;
-    background:
-        linear-gradient(rgba(225,245,252,.94), rgba(218,239,247,.97)),
-        linear-gradient(135deg,#5f8392,#173746);
+    text-align: center;
 }
 
 main {
@@ -28,8 +26,8 @@ main {
     margin: auto;
     background: white;
     border-radius: 26px;
-    padding: 24px 18px 35px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    padding: 22px 16px 32px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.15);
 }
 
 .badge {
@@ -42,102 +40,21 @@ main {
 }
 
 h1 {
-    font-size: clamp(32px,7vw,52px);
-    margin: 15px 0 5px;
+    margin: 14px 0 5px;
+    font-size: clamp(32px, 8vw, 52px);
 }
 
-.mission {
+.instructions {
+    max-width: 600px;
+    margin: 10px auto 18px;
     font-size: 19px;
-    line-height: 1.4;
-    margin-bottom: 20px;
-}
-
-.problem {
-    font-size: clamp(42px,10vw,70px);
-    font-weight: 900;
-    margin: 18px 0;
-}
-
-.groups {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.group {
-    min-width: 135px;
-    min-height: 120px;
-    border: 4px dashed #4b7282;
-    border-radius: 22px;
-    padding: 15px;
-    background: #f2fbff;
-}
-
-.counter {
-    font-size: 46px;
-    display: inline-block;
-    margin: 4px;
-}
-
-.plus {
-    font-size: 48px;
-    font-weight: 900;
-}
-
-.count-label {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.answers {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin: 25px 0 15px;
-}
-
-.answer {
-    min-width: 90px;
-    min-height: 70px;
-    font-size: 32px;
-    font-weight: 900;
-    border: 3px solid #173746;
-    border-radius: 18px;
-    background: white;
-    color: #173746;
-}
-
-.answer:active {
-    transform: scale(.95);
-}
-
-#feedback {
-    min-height: 45px;
-    font-size: 25px;
-    font-weight: bold;
-    margin: 12px;
-}
-
-#next {
-    display: none;
-    margin: 10px auto;
-    padding: 16px 25px;
-    border: 0;
-    border-radius: 18px;
-    background: #173746;
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
+    line-height: 1.45;
 }
 
 .progress {
-    margin: 20px auto 10px;
-    max-width: 400px;
+    max-width: 430px;
     height: 16px;
+    margin: 18px auto 8px;
     background: #dce8ed;
     border-radius: 20px;
     overflow: hidden;
@@ -146,19 +63,192 @@ h1 {
 #progressBar {
     height: 100%;
     width: 0%;
-    background: #4b879c;
+    background: #477f93;
+    transition: width .3s;
+}
+
+#missionNumber {
+    font-weight: bold;
+}
+
+.problem {
+    margin: 15px 0;
+    font-size: clamp(48px, 12vw, 76px);
+    font-weight: 900;
+}
+
+/* COUNTER BOARD */
+
+.counter-board {
+    margin: 20px auto;
+    padding: 20px 12px;
+    max-width: 620px;
+    background: #eef8fc;
+    border: 3px solid #6c98a8;
+    border-radius: 24px;
+}
+
+.counter-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.counters {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 520px;
+    margin: auto;
+}
+
+.counter {
+    position: relative;
+    aspect-ratio: 1;
+    min-height: 64px;
+    border: 4px solid #5b7d89;
+    border-radius: 50%;
+    background: white;
+    font-size: clamp(28px, 8vw, 45px);
+    cursor: pointer;
+    transition:
+        transform .12s,
+        background .15s,
+        border .15s;
+}
+
+.counter:active {
+    transform: scale(.92);
+}
+
+/* SELECTED COUNTER */
+
+.counter.selected {
+    background: #ffe889;
+    border: 5px solid #173746;
+    box-shadow:
+        inset 0 0 0 5px white,
+        0 0 0 3px #ffe889;
+}
+
+.counter-number {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    width: 27px;
+    height: 27px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #173746;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.counter.selected .counter-number {
+    display: flex;
+}
+
+/* COUNT DISPLAY */
+
+.count-display {
+    margin: 18px auto 10px;
+    padding: 12px;
+    max-width: 320px;
+    border-radius: 16px;
+    background: white;
+    border: 2px solid #aac6d0;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+#selectedCount {
+    font-size: 32px;
+}
+
+.reset {
+    margin: 8px;
+    padding: 11px 18px;
+    border: 2px solid #173746;
+    border-radius: 14px;
+    background: white;
+    color: #173746;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* ANSWERS */
+
+.answer-title {
+    margin-top: 25px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.answers {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.answer {
+    min-width: 90px;
+    min-height: 72px;
+    border: 3px solid #173746;
+    border-radius: 18px;
+    background: white;
+    color: #173746;
+    font-size: 34px;
+    font-weight: 900;
+}
+
+.answer:active {
+    transform: scale(.94);
+}
+
+#feedback {
+    min-height: 50px;
+    margin: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#next {
+    display: none;
+    margin: 12px auto;
+    padding: 16px 26px;
+    border: none;
+    border-radius: 18px;
+    background: #173746;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .home {
     display: inline-block;
     margin-top: 25px;
-    text-decoration: none;
-    background: #e8f5fa;
-    color: #173746;
+    padding: 12px 18px;
     border: 2px solid #173746;
     border-radius: 15px;
-    padding: 12px 18px;
+    background: #edf8fc;
+    color: #173746;
+    text-decoration: none;
     font-weight: bold;
+}
+
+@media (max-width: 400px) {
+    .counters {
+        gap: 8px;
+    }
+
+    .counter {
+        min-height: 55px;
+    }
 }
 </style>
 </head>
@@ -175,9 +265,9 @@ h1 {
 Storm Counter Math
 </h1>
 
-<p class="mission">
-Hayden, count the storm equipment in both boxes.
-Add the groups together and choose the correct answer.
+<p class="instructions">
+Solve the math problem using your storm counters.
+Tap one counter each time you count.
 </p>
 
 <div class="progress">
@@ -188,11 +278,42 @@ Add the groups together and choose the correct answer.
 
 <div id="problem" class="problem"></div>
 
-<div id="groups" class="groups"></div>
+
+<!-- COUNTER BOARD -->
+
+<section class="counter-board">
+
+<div class="counter-title">
+🛰️ Tap your counters as you count
+</div>
+
+<div id="counters" class="counters"></div>
+
+<div class="count-display">
+Counters selected:
+<br>
+<span id="selectedCount">0</span>
+</div>
+
+<button
+    class="reset"
+    id="resetCounters">
+    ↻ Reset Counters
+</button>
+
+</section>
+
+
+<div class="answer-title">
+Now choose your answer:
+</div>
 
 <div id="answers" class="answers"></div>
 
-<div id="feedback"></div>
+<div
+    id="feedback"
+    aria-live="polite">
+</div>
 
 <button id="next">
 Next Storm ➜
@@ -219,10 +340,10 @@ const problems = [
     [4,5],
     [7,2],
     [6,4],
-    [8,3]
+    [5,5]
 ];
 
-const icons = [
+const stormIcons = [
     "🌪️",
     "📡",
     "🌧️",
@@ -236,197 +357,399 @@ const icons = [
 ];
 
 let current = 0;
+let selectedCounters = 0;
 
+
+/* BUILD 10 COUNTERS */
+
+function buildCounters() {
+
+    const board =
+        document.getElementById("counters");
+
+    board.innerHTML = "";
+
+    selectedCounters = 0;
+
+    document.getElementById("selectedCount")
+        .textContent = "0";
+
+    for (let i = 1; i <= 10; i++) {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className = "counter";
+
+        button.setAttribute(
+            "aria-label",
+            "Counter " + i
+        );
+
+        button.innerHTML =
+            '<span>' +
+            stormIcons[(i - 1) % stormIcons.length] +
+            '</span>' +
+            '<span class="counter-number">' +
+            i +
+            '</span>';
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                button.classList.toggle(
+                    "selected"
+                );
+
+                updateCounterTotal();
+            }
+        );
+
+        board.appendChild(button);
+    }
+}
+
+
+/* COUNT SELECTED COUNTERS */
+
+function updateCounterTotal() {
+
+    selectedCounters =
+        document.querySelectorAll(
+            ".counter.selected"
+        ).length;
+
+    document.getElementById(
+        "selectedCount"
+    ).textContent =
+        selectedCounters;
+}
+
+
+/* RESET COUNTERS */
+
+function resetCounters() {
+
+    document.querySelectorAll(
+        ".counter"
+    ).forEach(
+        counter =>
+        counter.classList.remove(
+            "selected"
+        )
+    );
+
+    selectedCounters = 0;
+
+    document.getElementById(
+        "selectedCount"
+    ).textContent = "0";
+}
+
+
+document.getElementById(
+    "resetCounters"
+).addEventListener(
+    "click",
+    resetCounters
+);
+
+
+/* SHUFFLE ANSWERS */
 
 function shuffle(array) {
 
-    for (let i = array.length - 1; i > 0; i--) {
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
 
         const j =
-            Math.floor(Math.random() * (i + 1));
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
 
-        [array[i], array[j]] =
-            [array[j], array[i]];
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
     }
 
     return array;
 }
 
 
+/* SHOW QUESTION */
+
 function renderProblem() {
 
-    const [a,b] = problems[current];
+    const [a,b] =
+        problems[current];
 
-    const total = a + b;
+    const total =
+        a + b;
 
-    const icon = icons[current];
-
-    document.getElementById("missionNumber")
-        .textContent =
+    document.getElementById(
+        "missionNumber"
+    ).textContent =
         "Mission " +
         (current + 1) +
         " of " +
         problems.length;
 
-    document.getElementById("problem")
-        .textContent =
-        a + " + " + b + " = ?";
-
-
-    document.getElementById("groups")
-        .innerHTML =
-
-        '<div class="group">' +
-
-        Array(a)
-            .fill(
-                '<span class="counter">' +
-                icon +
-                '</span>'
-            )
-            .join('') +
-
-        '<div class="count-label">' +
+    document.getElementById(
+        "problem"
+    ).textContent =
         a +
-        ' counters</div>' +
-
-        '</div>' +
-
-        '<span class="plus">+</span>' +
-
-        '<div class="group">' +
-
-        Array(b)
-            .fill(
-                '<span class="counter">' +
-                icon +
-                '</span>'
-            )
-            .join('') +
-
-        '<div class="count-label">' +
+        " + " +
         b +
-        ' counters</div>' +
+        " = ?";
 
-        '</div>';
+    resetCounters();
+
+    document.getElementById(
+        "feedback"
+    ).textContent = "";
+
+    document.getElementById(
+        "next"
+    ).style.display =
+        "none";
 
 
     let choices = [
         total,
-        Math.max(1,total - 1),
-        total + 1
+        Math.max(
+            1,
+            total - 1
+        ),
+        Math.min(
+            10,
+            total + 1
+        )
     ];
 
-    choices = shuffle(choices);
+    choices =
+        [...new Set(choices)];
+
+    while (
+        choices.length < 3
+    ) {
+
+        let extra =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+
+        if (
+            !choices.includes(extra)
+        ) {
+            choices.push(extra);
+        }
+    }
+
+    shuffle(choices);
 
 
-    document.getElementById("answers")
-        .innerHTML =
-        choices.map(
-            number =>
-            '<button class="answer" onclick="checkAnswer(' +
-            number +
-            ',' +
-            total +
-            ')">' +
-            number +
-            '</button>'
-        ).join('');
+    const answerArea =
+        document.getElementById(
+            "answers"
+        );
 
+    answerArea.innerHTML = "";
 
-    document.getElementById("feedback")
-        .textContent = "";
+    choices.forEach(
+        choice => {
 
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-    document.getElementById("next")
-        .style.display = "none";
+            button.type =
+                "button";
+
+            button.className =
+                "answer";
+
+            button.textContent =
+                choice;
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    checkAnswer(
+                        choice,
+                        total
+                    );
+                }
+            );
+
+            answerArea.appendChild(
+                button
+            );
+        }
+    );
 
 
     const percent =
-        (current / problems.length) * 100;
+        (
+            current /
+            problems.length
+        ) * 100;
 
-    document.getElementById("progressBar")
-        .style.width =
+    document.getElementById(
+        "progressBar"
+    ).style.width =
         percent + "%";
 }
 
 
-function checkAnswer(answer,total) {
+/* CHECK ANSWER */
 
-    if (answer === total) {
+function checkAnswer(
+    answer,
+    total
+) {
 
-        document.getElementById("feedback")
-            .textContent =
-            "✅ Correct! Great counting, Hayden!";
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
 
-        document.getElementById("next")
-            .style.display =
+    if (
+        selectedCounters === 0
+    ) {
+
+        feedback.textContent =
+            "🌪️ Use your counters first! Tap them while you count.";
+
+        return;
+    }
+
+
+    if (
+        answer === total
+    ) {
+
+        feedback.textContent =
+            "✅ Correct! You counted " +
+            total +
+            " storm counters!";
+
+        document.getElementById(
+            "next"
+        ).style.display =
             "inline-block";
 
     }
 
     else {
 
-        document.getElementById("feedback")
-            .textContent =
-            "🌧️ Try again. Count every storm tool in both boxes.";
+        feedback.textContent =
+            "🌧️ Try again. Check your counters and count them one more time.";
     }
 }
 
 
-document.getElementById("next")
-    .onclick = function() {
+/* NEXT QUESTION */
+
+document.getElementById(
+    "next"
+).addEventListener(
+    "click",
+    function() {
 
         current++;
 
-        if (current >= problems.length) {
+        if (
+            current >=
+            problems.length
+        ) {
 
-            document.getElementById("progressBar")
-                .style.width =
-                "100%";
-
-            document.getElementById("problem")
-                .textContent =
-                "MISSION COMPLETE! 🌪️";
-
-            document.getElementById("groups")
-                .innerHTML =
-                "🏆";
-
-            document.getElementById("answers")
-                .innerHTML =
-                "";
-
-            document.getElementById("feedback")
-                .textContent =
-                "Great job, Hayden! You completed Storm Counter Math.";
-
-            document.getElementById("next")
-                .style.display =
-                "none";
-
-
-            let points =
-                Number(
-                    localStorage.getItem(
-                        "stormPoints"
-                    ) || 0
-                );
-
-            points += 10;
-
-            localStorage.setItem(
-                "stormPoints",
-                points
-            );
+            completeMission();
 
             return;
         }
 
         renderProblem();
-    };
+    }
+);
 
 
+/* COMPLETE */
+
+function completeMission() {
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        "100%";
+
+    document.getElementById(
+        "missionNumber"
+    ).textContent =
+        "Mission Complete";
+
+    document.getElementById(
+        "problem"
+    ).textContent =
+        "🌪️ GREAT JOB!";
+
+    document.querySelector(
+        ".counter-board"
+    ).innerHTML =
+        "<h2>🏆 TIV 2 MATH TRAINING COMPLETE</h2>" +
+        "<p>You finished all 10 math missions!</p>";
+
+    document.getElementById(
+        "answers"
+    ).innerHTML = "";
+
+    document.querySelector(
+        ".answer-title"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "feedback"
+    ).textContent =
+        "You earned 10 Storm Points!";
+
+    document.getElementById(
+        "next"
+    ).style.display =
+        "none";
+
+
+    let points =
+        Number(
+            localStorage.getItem(
+                "stormPoints"
+            ) || 0
+        );
+
+    points += 10;
+
+    localStorage.setItem(
+        "stormPoints",
+        points
+    );
+}
+
+
+/* START */
+
+buildCounters();
 renderProblem();
 
 </script>
